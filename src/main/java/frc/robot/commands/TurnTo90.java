@@ -5,11 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Drivetrain;
 
 public class TurnTo90 extends CommandBase {
+  double powerAt90 = 0.5;
+  double targetAngle = 90;
+  double kP = powerAt90 / targetAngle;
+  Drivetrain drivetrain;
+
+  
   /** Creates a new TurnTo90. */
-  public TurnTo90() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public TurnTo90(Drivetrain drivetrain) {
+
+    this.drivetrain = drivetrain;
+    addRequirements(drivetrain);
+    
+    
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +29,17 @@ public class TurnTo90 extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    
+    double currentAngle = drivetrain.ahrs.getAngle();
+
+    double error = targetAngle - currentAngle;
+    double power = error * kP;
+    drivetrain.setMotors(power,-power);
+
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
