@@ -8,19 +8,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class TurnTo90 extends CommandBase {
-  double powerAt90 = 0.5;
-  double targetAngle = 90;
-  double kP = powerAt90 / targetAngle;
-  Drivetrain drivetrain;
 
-  
+  private Drivetrain drivetrain;
   /** Creates a new TurnTo90. */
   public TurnTo90(Drivetrain drivetrain) {
-
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
-    
-    
+
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
